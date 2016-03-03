@@ -16,6 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from interviewee import views
+
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^interviewer/', include('interviewer.urls')),
+    url(r'^register/', include('interviewee.urls'), name = 'register'),
+    url(r'^admin/', admin.site.urls),
 ]
