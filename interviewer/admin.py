@@ -3,7 +3,7 @@ from .models import InterviewGroup, InterviewDepartment
 
 
 class InterviewGroupAdmin(admin.ModelAdmin):
-	list_display = ['name', 'code']
+	list_display = ['name', 'code', 'lastqueue']
 
 class InterviewDepartmentAdmin(admin.ModelAdmin):
 	list_display = ['name', 'code', 'get_group', 'description', 'get_status', 'last_action']

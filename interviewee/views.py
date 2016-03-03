@@ -24,7 +24,9 @@ def group(request):
 
 		if (DepartmentForm(request.POST, group = group).is_valid()):
 			try:
-				tmp = Interviewee(group = group, department = dept, matric = request.POST['matric'], name = request.POST['name'], year = request.POST['year'], major = request.POST['major'], phone = request.POST['phone'])
+				tmp = Interviewee(group = group, department = dept, matric = request.POST['matric'], name = request.POST['name'], year = request.POST['year'], major = request.POST['major'], phone = request.POST['phone'], queuenum = (group.lastqueue + 1))
+				group.lastqueue += 1
+				group.save()
 				tmp.save()
 			except:
 				return render(request, 'register/input.html', {'form': form, 'status' : "form not valid",})
