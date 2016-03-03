@@ -2,7 +2,7 @@ from django import forms
 from interviewer import models as interviewer_models
 
 class GroupForm(forms.Form):
-	groupcode = forms.CharField(max_length = 256)
+	groupcode = forms.CharField(max_length = 200)
 	groupcode.widget = forms.TextInput(attrs = {'autofocus': 'autofocus',})
 
 class DepartmentForm(forms.Form):
