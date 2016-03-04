@@ -5,6 +5,10 @@ class GroupForm(forms.Form):
 	groupcode = forms.CharField(max_length = 200)
 	groupcode.widget = forms.TextInput(attrs = {'autofocus': 'autofocus',})
 
+class QueueGroupForm(forms.Form):
+	groupcode = forms.CharField(max_length = 200)
+	groupcode.widget = forms.TextInput(attrs = {'autofocus': 'autofocus',})
+
 class DepartmentForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		groupcode = kwargs.pop('group')

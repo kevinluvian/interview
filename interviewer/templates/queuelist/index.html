@@ -22,7 +22,7 @@
 	<td>{{ e.0 }}</td>
 	<td>{{ e.1 }}</td>
     <td><a href="./CALL/{{ e.0 }}">Call</a></td>
-    <td>Delete</td>
+    <td><a href="./DELETE/{{ e.0 }}" onClick="return confirm('Are you sure want to delete?');">Delete</a></td>
 </tr>
 {% endfor %}
 </table>
@@ -44,7 +44,7 @@
 	<td>{{ w.2 }}</td>
 	<td>{{ w.3 }}</td>
     <td><a href="./CALL/{{ w.0 }}">Call</a></td>
-    <td>Delete</td>
+    <td><a href="./DELETE/{{ w.0 }}" onClick="return confirm('Are you sure want to delete?');">Delete</a>
 </tr>
 {% endfor %}
 </table>
