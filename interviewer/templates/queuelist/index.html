@@ -1,10 +1,21 @@
+<script>
+     var time = new Date().getTime();
+
+     function refresh() {
+         if(new Date().getTime() - time >= 15000) 
+             window.location.reload(true);
+     }
+
+     setTimeout(refresh, 15000);
+</script>
+
 <table style="width:100%">
 
 <tr>
-	<td>Queue Number</td>
-	<td>Matric Number</td>
-    <td></td>
-    <td></td>
+	<td style = "width:10%">Queue Number</td>
+	<td style = "width:70%">Matric Number</td>
+    <td style = "width:10%"></td>
+    <td style = "width:10%"></td>
 </tr>
 {% for e in pending %}
 <tr>
@@ -19,12 +30,12 @@
 <table style="width:100%">
 
 <tr>
-	<td>Queue Number</td>
-	<td>Matric Number</td>
-    <td>Comment</td>
-    <td>Score</td>
-    <td></td>
-    <td></td>
+	<td style = "width:10%">Queue Number</td>
+	<td style = "width:20%">Matric Number</td>
+    <td style = "width:25%">Comment</td>
+    <td style = "width:25%">Score</td>
+    <td style = "width:10%"></td>
+    <td style = "width:10%"></td>
 </tr>
 {% for w in finished %}
 <tr>

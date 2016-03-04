@@ -4,7 +4,7 @@ from datetime import datetime
 # Create your models here.
 class InterviewGroup(models.Model):
 	name = models.CharField(max_length = 200)
-	code = models.CharField(max_length = 200)
+	code = models.CharField(max_length = 200, unique = True)
 	lastqueue = models.IntegerField(default = 0)
 	currentqueue = models.IntegerField(default = 0)
 	def __str__(self):
@@ -12,7 +12,7 @@ class InterviewGroup(models.Model):
 
 class InterviewDepartment(models.Model):
 	name = models.CharField(max_length = 200)
-	code = models.CharField(max_length = 200)
+	code = models.CharField(max_length = 200, unique = True)
 	group = models.ForeignKey(InterviewGroup)
 	description = models.TextField()
 	#0 = break , 1 = calling , 2 = interviewing , 3 = idle

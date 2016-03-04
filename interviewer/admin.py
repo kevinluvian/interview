@@ -11,13 +11,13 @@ class InterviewDepartmentAdmin(admin.ModelAdmin):
 		return obj.group.name
 	def get_status(self, obj):
 		if (obj.status == 0):
-			return "break"
-		elif (obj.status == 1):
 			return "idling"
-		elif (obj.status == 2):
+		elif (obj.status == 1):
 			return ("calling queue number " + str(obj.status_desc))
-		elif (obj.status == 3):
+		elif (obj.status == 2):
 			return ("interviewing queue number " + str(obj.status_desc))
+		elif (obj.status == 3):
+			return "break"
 	get_status.short_description = 'status'
 	get_group.short_description = 'Event'
 	get_group.admin_order_field = 'code'
