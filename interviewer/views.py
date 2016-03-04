@@ -49,7 +49,7 @@ def queuelist(request, code):
 			except:
 				pass
 
-		#	try:
+			try:
 				if (request.POST['cancelcall'] == "Put back to queue"):
 					q = interviewee_models.objects.get(queuenum = request.POST['queuenum'], department__code = code)
 					w.status = 0
@@ -61,8 +61,8 @@ def queuelist(request, code):
 					q.last_action = datetime.now()
 					w.save()
 					q.save()
-		#	except:
-		#		pass
+			except:
+				pass
 
 		elif (w.status == 2):
 			#update interviewee punya status sama score, trus status interviewee dan interviewer
