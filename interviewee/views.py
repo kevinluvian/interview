@@ -74,9 +74,9 @@ def queueboard(request, group):
 	for w in intervieweelist:
 		if (w.status == 0):
 			if (len(arr[w.department.code]) < 5):
-				arr[w.department.code].append(w.queuenum)
+				arr[w.department.code].append(w.matric)
 		elif (w.status == 1):
-			call[w.department.code] = w.queuenum
+			call[w.department.code] = w.matric
 	for w in deptlist :
 		kosong[w.code] = range(0,max(0,5-len(arr[w.code])))
 
