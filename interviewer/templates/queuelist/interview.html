@@ -1,0 +1,12 @@
+<form action='.' method='POST'>{% csrf_token %}
+you are interviewing queue number {{ queuenum }} <br>
+
+matric : {{ studentinfo.matric }} <br>
+name : {{ studentinfo.name }}<br>
+year : {{ studentinfo.year }}<br>
+major : {{ studentinfo.major }}<br>
+phone number : {{ studentinfo.phone }}<br>
+
+{{ form.as_p }}
+<input type='submit' value='Submit' />
+</form>

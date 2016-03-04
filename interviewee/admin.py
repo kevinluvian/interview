@@ -8,7 +8,8 @@ class IntervieweeAdmin(admin.ModelAdmin):
 	def get_department(self, obj):
 		return obj.department.name
 	get_department.short_description = 'Department'
+	get_department.admin_order_field = 'department'
 	get_group.short_description = 'Group'
-	get_group.admin_order_field = 'code'
+	get_group.admin_order_field = 'group'
 
 admin.site.register(Interviewee, IntervieweeAdmin)
