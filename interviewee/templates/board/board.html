@@ -1,0 +1,32 @@
+{% load app_filters %}
+<table style="width:100%" border = "1">
+<tr align = "center" >
+	<td colspan = "6">Interview Group</td>
+	<td colspan = "2" rowspan = "2">Calling</td>
+</tr>
+<tr align = "center" >
+	<td>DEPT</td>
+	<td colspan = "5">Next 5 Queue</td>
+</tr>
+{% comment %}
+{{data}}
+{{alias}}
+{% endcomment %}
+{% for key in dept %}
+<tr align = "center" >
+	<td style = "width:10%" bgcolor = "
+	{% if status|get_item:key == 0 %} white {% endif %}
+	{% if status|get_item:key == 1 %} yellow {% endif %}
+	{% if status|get_item:key == 2 %} cyan {% endif %}
+	{% if status|get_item:key == 3 %} red {% endif %}">{{ alias|get_item:key }}</td>
+	{% for q in data|get_item:key %}
+	<td style = "width:10%">{{ q }}</td>
+	{% endfor %}
+	{% for q in kosong|get_item:key %}
+	<td style = "width:10%"></td>
+	{% endfor %}
+	<td style = "width:20%">{{ calls|get_item:key }}</td>
+	<td style = "width:20%">{{ alias|get_item:key }}</td>
+</tr>
+{% endfor %}
+</table>

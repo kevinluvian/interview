@@ -1,3 +1,14 @@
+<script>
+	var time = new Date("{{ last_action.isoformat }}");
+	function refresh() {
+		timer.innerHTML = "Time elapsed : " + parseInt(Math.round((new Date().getTime() - time)/1000)) + " seconds";
+		setTimeout(refresh, 1000);
+	}
+
+    setTimeout(refresh, 0);
+</script>
+
+<div id = "timer"></div>
 <form action='.' method='POST'>{% csrf_token %}
 calling queue number :{{ queuenum }}<br>
 {{ form.as_p }}

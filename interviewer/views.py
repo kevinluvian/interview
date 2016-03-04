@@ -49,6 +49,18 @@ def queuelist(request, code):
 			except:
 				pass
 
+			try:
+				if (request.POST['cancelcall'] == "Put back to queue"):
+					q = interviewee_models.objects.get(queuenum = request.POST['queuenum'], department__code = code)
+					w.status = 0
+					q.status = 0
+					w.last_action = datetime.now()
+					q.last_action = datetime.now()
+					w.save()
+					q.save()
+			except:
+				pass
+
 		elif (w.status == 2):
 			#update interviewee punya status sama score, trus status interviewee dan interviewer
 			q = interviewee_models.objects.get(queuenum = w.status_desc, department__code = code)
@@ -69,7 +81,7 @@ def queuelist(request, code):
 
 	if (w.status == 1):
 		form = CallingForm(queuenum = w.status_desc)
-		return render(request, 'queuelist/call.html', {'form' : form, 'queuenum' : w.status_desc,})
+		return render(request, 'queuelist/call.html', {'form' : form, 'queuenum' : w.status_desc, 'last_action' : w.last_action})
 	elif(w.status == 2):
 	#	return HttpResponse('wstatus 2 ' + str(w.status_desc))
 		form = InterviewForm(queuenum = w.status_desc, code = w.code)
@@ -97,27 +109,21 @@ def queuelist(request, code):
 #	return HttpResponse('Hello, world. Youre at the choose department index. ')
 
 def call(request, code, queuenum):
-	#update interviewee statusnya,
-	q = interviewee_models.objects.get(queuenum = queuenum, department__code = code)
 	w = InterviewDepartment.objects.get(code = code)
-	q.status = 1
-	w.status = 1
-	w.status_desc = queuenum
-	w.last_action = datetime.now()
-	q.last_action = datetime.now()
-	w.save()
-	q.save()
+	if (w.status == 0):
+		#update interviewee statusnya,
+		q = interviewee_models.objects.get(queuenum = queuenum, department__code = code)
+		q.status = 1
+		w.status = 1
+		w.status_desc = queuenum
+		w.last_action = datetime.now()
+		q.last_action = datetime.now()
+		w.save()
+		q.save()
 	return redirect("../..")
 	#update interviewer statusnya
-	return
 
-def interview(request, queuenum):
-	#update interviewee statusnya,
-	#update interviewer statusnya
-	return
-
-def doneinterview(request, queuenum):
-	#update interviewee statusnya,
-	#update interviewer statusnya
-	#update lastqueue interviewer
-	return
+def delete(request, code, queuenum):
+	q = interviewee_models.objects.get(queuenum = queuenum, department__code = code)
+	q.delete()
+	return redirect("../..")
