@@ -1,6 +1,6 @@
 from django.db import models
 from interviewer import models as interviewer_models
-
+from datetime import datetime
 
 # Create your models here.
 class Interviewee(models.Model):
@@ -13,6 +13,8 @@ class Interviewee(models.Model):
 	major = models.CharField(max_length = 200)
 	phone = models.CharField(max_length = 200)
 	status = models.IntegerField(default = 0)
+	score = models.IntegerField(default = 0, blank = True)
+	last_action = models.DateTimeField(default = datetime.now)
 	comment = models.TextField(blank = True)
 
 	def __str__(self):

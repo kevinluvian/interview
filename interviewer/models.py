@@ -6,6 +6,7 @@ class InterviewGroup(models.Model):
 	name = models.CharField(max_length = 200)
 	code = models.CharField(max_length = 200)
 	lastqueue = models.IntegerField(default = 0)
+	currentqueue = models.IntegerField(default = 0)
 	def __str__(self):
 		return self.code
 

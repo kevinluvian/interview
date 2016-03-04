@@ -1,0 +1,39 @@
+<table style="width:100%">
+
+<tr>
+	<td>Queue Number</td>
+	<td>Matric Number</td>
+    <td></td>
+    <td></td>
+</tr>
+{% for e in pending %}
+<tr>
+	<td>{{ e.0 }}</td>
+	<td>{{ e.1 }}</td>
+    <td><a href="./CALL/{{ e.0 }}">Call</a></td>
+    <td>Delete</td>
+</tr>
+{% endfor %}
+</table>
+<hr>
+<table style="width:100%">
+
+<tr>
+	<td>Queue Number</td>
+	<td>Matric Number</td>
+    <td>Comment</td>
+    <td>Score</td>
+    <td></td>
+    <td></td>
+</tr>
+{% for w in finished %}
+<tr>
+	<td>{{ w.0 }}</td>
+	<td>{{ w.1 }}</td>
+	<td>{{ w.2 }}</td>
+	<td>{{ w.3 }}</td>
+    <td><a href="./CALL/{{ w.0 }}">Call</a></td>
+    <td>Delete</td>
+</tr>
+{% endfor %}
+</table>
