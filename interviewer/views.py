@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LoginForm, CallingForm, InterviewForm
-from .models import InterviewDepartment
+from .models import InterviewDepartment, InterviewGroup
 from django.http import JsonResponse
 from interviewee.models import Interviewee as interviewee_models
 from datetime import datetime
@@ -49,17 +49,20 @@ def queuelist(request, code):
 			except:
 				pass
 
-			try:
+		#	try:
 				if (request.POST['cancelcall'] == "Put back to queue"):
 					q = interviewee_models.objects.get(queuenum = request.POST['queuenum'], department__code = code)
 					w.status = 0
 					q.status = 0
+					q.queuenum = w.group.lastqueue + 1
+					w.group.lastqueue += 1
+					w.group.save()
 					w.last_action = datetime.now()
 					q.last_action = datetime.now()
 					w.save()
 					q.save()
-			except:
-				pass
+		#	except:
+		#		pass
 
 		elif (w.status == 2):
 			#update interviewee punya status sama score, trus status interviewee dan interviewer
