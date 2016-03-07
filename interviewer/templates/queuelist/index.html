@@ -2,10 +2,11 @@
      var time = new Date().getTime();
 
      function refresh() {
-         if(new Date().getTime() - time >= 15000) 
+         if(new Date().getTime() - time >= 15000) {
              window.location.reload(true);
+         }
+         setTimeout(refresh, 15000);
      }
-
      setTimeout(refresh, 15000);
 </script>
 
