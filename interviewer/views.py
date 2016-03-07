@@ -32,8 +32,6 @@ def queuelist(request, code):
 					q.last_action = datetime.now()
 					w.save()
 					q.save()
-	#				form = InterviewForm(queuenum = request.POST['queuenum'])
-	#				return render(request, 'queuelist/interview.html', {'form' : form, 'queuenum' : request.POST['queuenum'],})
 			except:
 				pass
 

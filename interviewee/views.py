@@ -42,7 +42,6 @@ def group(request):
 def department(request, group):
 	form = DepartmentForm(group = group)
 	return render(request, 'register/input2.html', {'form': form,})
-#	return HttpResponse('Hello, world. Youre at the choose department index. ' + group)
 
 def queuegroup(request):
 	form = QueueGroupForm()
@@ -54,34 +53,8 @@ def queuegroup(request):
 			return render(request, 'board/input3.html', {'form': form, 'status' : "wrong code"})
 	return render(request, 'board/input3.html', {'form': form,})
 
-@register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
-
 def queueboard(request, group):
-	deptlist = interviewer_models.InterviewDepartment.objects.filter(group__code = group)
-	arr = {}
-	alias = {}
-	kosong = {}
-	call = {}
-	dept = []
-	status = {}
-	for w in deptlist :
-		dept.append(w.code)
-		alias[w.code] = w.name
-		arr[w.code] = []
-		status[w.code] = w.status
-	intervieweelist = Interviewee.objects.filter(group__code = group).order_by('queuenum')
-	for w in intervieweelist:
-		if (w.status == 0):
-			if (len(arr[w.department.code]) < 5):
-				arr[w.department.code].append(w.matric)
-		elif (w.status == 1):
-			call[w.department.code] = w.matric
-	for w in deptlist :
-		kosong[w.code] = range(0,max(0,5-len(arr[w.code])))
-
-	return render(request, 'board/board.html', {'status' : status, 'dept' : dept, 'alias' : alias, 'data' : arr, 'kosong' : kosong, 'calls' : call})
+	return render(request, 'board/board.html')
 
 def requestdata(request, group):
 	deptlist = interviewer_models.InterviewDepartment.objects.filter(group__code = group).order_by('code')
@@ -102,7 +75,6 @@ def requestdata(request, group):
 			returndata[-1].append("cyan")
 		elif (w.status == 3):
 			returndata[-1].append("red")
-		
 		returndata[-1].extend([w.code, w.name])
 		call[w.code] = ""
 	
