@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^interviewer/', include('interviewer.urls')),
     url(r'^register/', include('interviewee.urls'), name = 'register'),
     url(r'^queue/$', views.queuegroup, name = 'queuegroup'),
-    url(r'^queue/(?P<group>\w+)/', views.queueboard, name = 'queueboard'),
+    url(r'^queue/(?P<group>\w+)/$', views.queueboard, name = 'queueboard'),
+    url(r'^queue/(?P<group>\w+)/request/', views.requestdata, name = 'requestdata'),
     url(r'^admin/', admin.site.urls),
 ]

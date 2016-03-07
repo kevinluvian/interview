@@ -1,32 +1,62 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+	var time = new Date().getTime();
+
+	function refresh() {
+	    console.log("refresh!")
+	    $.ajax({
+	        url : "request/",
+	        type : "GET", 
+	        data : {}, 
+
+	        success : function(json) {
+	            $('#post-text').val('');
+	        //  console.log(json);
+	        //  console.log("success");
+	        //  console.log(json['data']);
+	            $('.tablequeue').empty();
+	            
+	            for(var i = 0; i < json['data'].length; i++) {
+	            	var kata =  "";
+	            	kata = kata + '<tr align = \"center\" ><td style = \"width:10%\" bgcolor = \"';
+				    kata = kata + json['data'][i][0];
+				    kata = kata + '\">';
+		            kata = kata + json['data'][i][2];
+		            kata = kata + '</td><td style = \"width:10%\">';
+		            kata = kata + json['data'][i][3];
+		            kata = kata + '</td><td style = \"width:10%\">';
+		            kata = kata + json['data'][i][4];
+		            kata = kata + '</td><td style = \"width:10%\">';
+		            kata = kata + json['data'][i][5];
+		            kata = kata + '</td><td style = \"width:10%\">';
+		            kata = kata + json['data'][i][6];
+		            kata = kata + '</td><td style = \"width:10%\">';
+		            kata = kata + json['data'][i][7];
+		            kata = kata + '</td><td style = \"width:20%\">';
+		            kata = kata + json['data'][i][8];
+		            kata = kata + '</td><td style = \"width:20%\">';
+		            kata = kata + json['data'][i][2];
+		            kata = kata + '</td>';
+		            $('.tablequeue').append(kata);
+				}
+	        },
+	    });
+		setTimeout(refresh, 2000);
+	};
+	setTimeout(refresh, 0);
+</script>
+
 {% load app_filters %}
 <table style="width:100%" border = "1">
 <tr align = "center" >
-	<td colspan = "6">Interview Group</td>
-	<td colspan = "2" rowspan = "2">Calling</td>
+	<td colspan = 2 >Interview Group</td>
+	<td style = "width:40%" rowspan = "2">Calling</td>
 </tr>
 <tr align = "center" >
-	<td>DEPT</td>
-	<td colspan = "5">Next 5 Queue</td>
+	<td style = "width:10%">DEPT</td>
+	<td style = "width:50%">Next 5 Queue</td>
 </tr>
-{% comment %}
-{{data}}
-{{alias}}
-{% endcomment %}
-{% for key in dept %}
-<tr align = "center" >
-	<td style = "width:10%" bgcolor = "
-	{% if status|get_item:key == 0 %} white {% endif %}
-	{% if status|get_item:key == 1 %} yellow {% endif %}
-	{% if status|get_item:key == 2 %} cyan {% endif %}
-	{% if status|get_item:key == 3 %} red {% endif %}">{{ alias|get_item:key }}</td>
-	{% for q in data|get_item:key %}
-	<td style = "width:10%">{{ q }}</td>
-	{% endfor %}
-	{% for q in kosong|get_item:key %}
-	<td style = "width:10%"></td>
-	{% endfor %}
-	<td style = "width:20%">{{ calls|get_item:key }}</td>
-	<td style = "width:20%">{{ alias|get_item:key }}</td>
-</tr>
-{% endfor %}
+</table>
+<table style = "width:100%" border = "1" class = "tablequeue">
 </table>

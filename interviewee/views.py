@@ -4,6 +4,7 @@ from interviewee.forms import GroupForm, DepartmentForm, QueueGroupForm
 from interviewer import models as interviewer_models
 from .models import Interviewee
 from django.template.defaulttags import register
+from django.http import JsonResponse
 
 def group(request):
 	form = GroupForm()
@@ -81,3 +82,42 @@ def queueboard(request, group):
 		kosong[w.code] = range(0,max(0,5-len(arr[w.code])))
 
 	return render(request, 'board/board.html', {'status' : status, 'dept' : dept, 'alias' : alias, 'data' : arr, 'kosong' : kosong, 'calls' : call})
+
+def requestdata(request, group):
+	deptlist = interviewer_models.InterviewDepartment.objects.filter(group__code = group).order_by('code')
+	intervieweelist = Interviewee.objects.filter(group__code = group).order_by('queuenum')
+	call = {}
+	returndata = []
+	maps = {}
+	cnt = 0
+	for w in deptlist :
+		maps[w.code] = cnt
+		cnt += 1
+		returndata.append([])
+		if (w.status == 0):
+			returndata[-1].append("white")
+		elif (w.status == 1):
+			returndata[-1].append("yellow")
+		elif (w.status == 2):
+			returndata[-1].append("cyan")
+		elif (w.status == 3):
+			returndata[-1].append("red")
+		
+		returndata[-1].extend([w.code, w.name])
+		call[w.code] = ""
+	
+	for w in intervieweelist:
+		if (w.status == 0):
+			if (len(returndata[maps[w.department.code]]) < 8):
+				returndata[maps[w.department.code]].append(w.matric)
+		elif (w.status == 1):
+			call[w.department.code] = w.matric
+
+	for w in returndata:
+		while (len(w) < 8):
+			w.append("")
+
+	for key,val in call.items():
+		returndata[maps[key]].append(val)
+
+	return JsonResponse({'data' : returndata})
